@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home";
-import Login from "./components/Auth/Login";
-import Signup from "./components/Auth/Signup";
-import PatientDashboard from "./components/Patients/PatientDashboard";
-import DoctorDashboard from "./components/Doctors/DoctorDashboard";
+import Home from "./pages/Home";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import PatientDashboard from "./components/PatientDashboard";
+import DoctorDashboard from "./components/DoctorDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => (
     <Router>
@@ -11,8 +12,24 @@ const App = () => (
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/patient" element={<PatientDashboard />} />
-            <Route path="/doctor" element={<DoctorDashboard />} />
+
+            <Route 
+                path="/patient" 
+                element={
+                    <ProtectedRoute>
+                        <PatientDashboard />
+                    </ProtectedRoute>
+                } 
+            />
+
+            <Route 
+                path="/doctor" 
+                element={
+                    <ProtectedRoute>
+                        <DoctorDashboard />
+                    </ProtectedRoute>
+                } 
+            />
         </Routes>
     </Router>
 );
